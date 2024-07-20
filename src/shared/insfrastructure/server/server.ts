@@ -1,7 +1,10 @@
-import express, { Router } from 'express';
 import compression from 'compression';
+import cors from 'cors';
+import express, { Router } from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+
+import { notFoundMiddleware } from './middlewares';
 
 
 
@@ -34,11 +37,13 @@ export class Server {
   async start() {
 
     ///* Middlewares
+    this.app.use(cors());
     this.app.use(express.json());
     // this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(helmet());
     this.app.use(compression());
+    this.app.use(helmet());
     this.app.use(morgan('dev'));
+
 
 
     ///* Serve Static Content
@@ -49,6 +54,8 @@ export class Server {
     this.app.use(this.router);
 
 
+    ///* final middlewares
+    this.app.use(notFoundMiddleware);
 
 
 

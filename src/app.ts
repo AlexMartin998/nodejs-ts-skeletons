@@ -1,6 +1,6 @@
 import { envs } from './config';
-import { AppRouter } from './presentation/router';
-import { Server } from './presentation/server';
+import { AppRouter } from './shared/insfrastructure/server/router';
+import { Server } from './shared/insfrastructure/server/server';
 
 
 (async () => {
