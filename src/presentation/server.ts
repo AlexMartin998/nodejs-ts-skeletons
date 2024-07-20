@@ -1,5 +1,7 @@
 import express, { Router } from 'express';
 import compression from 'compression';
+import helmet from 'helmet';
+import morgan from 'morgan';
 
 
 
@@ -34,7 +36,9 @@ export class Server {
     ///* Middlewares
     this.app.use(express.json());
     // this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(helmet());
     this.app.use(compression());
+    this.app.use(morgan('dev'));
 
 
     ///* Serve Static Content
@@ -45,13 +49,7 @@ export class Server {
     this.app.use(this.router);
 
 
-    ///* SPA
-    /* this.app.get('*', (_req, res) => {
-      // absolute path:
-      const indexPath = path.join( __dirname + `../../../${ this.publicPath }/index.html` );
 
-      res.sendFile(indexPath);
-    }); */
 
 
     ///* Express Server
